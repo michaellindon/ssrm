@@ -28,7 +28,7 @@ Sequential SRM test
 [here](https://github.com/optimizely/ssrm/blob/master/notebooks/introduction.ipynb).  Run `jupyter lab`, and open `notebooks/introduction.ipynb`.
 
 ## Documentation
-The latest reference documentation is here (TBD).
+The latest reference documentation is [here](https://ssrm.readthedocs.io/en/latest/).
 
 ## Contributing
 See the contributing doc [here](https://github.com/optimizely/ssrm/blob/master/CONTRIBUTING.md).

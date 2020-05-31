@@ -54,3 +54,8 @@ jobs:
         PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
         PYPI_TEST_API_TOKEN: ${{ secrets.PYPI_TEST_API_TOKEN }}
       run: make publish-test
+    - name: Publish to PyPi
+      env:
+        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+      run: make publish
