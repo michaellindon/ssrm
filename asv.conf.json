@@ -7,7 +7,7 @@
     "project": "ssrm",
 
     // The project's homepage
-    "project_url": "http://https://github.com/optimizely/ssrm/",
+    //"project_url": "http://https://github.com/optimizely/ssrm/",
 
     // The URL or local path of the source code repository for the
     // project being benchmarked
@@ -16,7 +16,7 @@
     // The Python project's subdirectory in your repo.  If missing or
     // the empty string, the project is assumed to be located at the root
     // of the repository.
-    "repo_subdir": "ssrm_test",
+    "repo_subdir": ".",
 
     // Customizable commands for building, installing, and
     // uninstalling the project. See asv.conf.json documentation.
@@ -27,7 +27,7 @@
     //     "python setup.py build",
     //     "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}"
     // ],
-    "build_command": ["make install"]
+    //"build_command": ["python setup.py"],
 
     // List of branches to benchmark. If not provided, defaults to "master"
     // (for git) or "default" (for mercurial).
@@ -37,15 +37,15 @@
     // The DVCS being used.  If not set, it will be automatically
     // determined from "repo" by looking at the protocol in the URL
     // (if remote), or by looking for special directories, such as
-    ".git" (if local).
-    // "dvcs": "git",
+    //".git" (if local).
+    //"dvcs": ".git",
 
     // The tool to use to create environments.  May be "conda",
     // "virtualenv" or other value depending on the plugins in use.
     // If missing or the empty string, the tool will be automatically
     // determined by looking for tools on the PATH environment
     // variable.
-    "environment_type": "conda",
+    "environment_type": "virtualenv",
 
     // timeout in seconds for installing any dependencies in environment
     // defaults to 10 min
