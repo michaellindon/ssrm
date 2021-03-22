@@ -1,14 +1,25 @@
 import numpy as np
 from scipy.optimize import bisect
-from scipy.special import gammaln, loggamma, xlogy
-from ssrm_test.ssrm_test import accumulator
+from scipy.special import xlogy
+from ssrm_test.ssrm_test import sequential_posteriors
 from toolz import curry
 from toolz.itertoolz import accumulate
 
 from . import constants as const
 
 
-def confidence_sequence(posteriors, coverage):
+def confidence_sequence(observations, coverage, guess=[0.5, 0.5], guess_confidence=2.0):
+    posteriors = sequential_posteriors(
+        np.array(observations),
+        np.array(guess),
+        dirichlet_probability=np.array(guess),
+        dirichlet_concentration=guess_confidence,
+    )
+    cis = confidence_sequence_from_posteriors(posteriors, coverage)
+    return cis
+
+
+def confidence_sequence_from_posteriors(posteriors, coverage):
 
     assert (
         len(posteriors[0][const.DATA]) == 2

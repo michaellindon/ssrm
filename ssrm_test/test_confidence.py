@@ -19,11 +19,11 @@ import numpy as np
 from scipy.stats import multinomial
 
 from . import constants as const
-from .confidence import confidence_sequence
+from .confidence import confidence_sequence, confidence_sequence_from_posteriors
 from .ssrm_test import sequential_posteriors
 
 
-def test_confidence_sequence():
+def test_confidence_sequence_from_posteriors():
     """
     Tests that the confidence sequence is a running intersection
     """
@@ -38,7 +38,21 @@ def test_confidence_sequence():
         dirichlet_probability=dirichlet_probability,
         dirichlet_concentration=dirichlet_concentration,
     )
-    cis = confidence_sequence(posteriors, 0.99)
+    cis = confidence_sequence_from_posteriors(posteriors, 0.99)
+    lowers = [ci[0] for ci in cis]
+    uppers = [ci[1] for ci in cis]
+    assert np.all(np.diff(uppers) <= 0)  # upper bound non increasing
+    assert np.all(np.diff(lowers) >= 0)  # lower bound non decreasing
+
+
+def test_confidence():
+    """
+    Tests that the confidence sequence is a running intersection
+    """
+    theta = np.array([0.5, 0.5])
+    sample_size = 4000
+    observations = multinomial.rvs(1, theta, size=sample_size)
+    cis = confidence_sequence(observations, 0.99)
     lowers = [ci[0] for ci in cis]
     uppers = [ci[1] for ci in cis]
     assert np.all(np.diff(uppers) <= 0)  # upper bound non increasing
