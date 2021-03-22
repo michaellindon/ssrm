@@ -100,6 +100,7 @@ def accumulator(acc: dict, new_data_point: np.ndarray) -> dict:
         posterior_odds = np.exp(log_posterior_odds)
     post_prob = posterior_probability(posterior_odds)
     p_value = min(1 / bayes_factor, acc[const.P_VALUE])
+    data = acc[const.DATA] + new_data_point
     out = {
         const.LOG_POSTERIOR_ODDS: log_posterior_odds,
         const.POSTERIOR_ODDS: posterior_odds,
@@ -113,6 +114,7 @@ def accumulator(acc: dict, new_data_point: np.ndarray) -> dict:
         else acc[const.LOG_MARGINAL_LIKELIHOOD_M0],
         const.POSTERIOR_M1: acc[const.POSTERIOR_M1] + new_data_point,
         const.POSTERIOR_M0: acc[const.POSTERIOR_M0],
+        const.DATA: data,
     }
     return out
 
@@ -336,6 +338,7 @@ def sequential_posteriors(
         const.LOG_MARGINAL_LIKELIHOOD_M0: 0,
         const.POSTERIOR_M1: dirichlet_alpha,
         const.POSTERIOR_M0: null_probabilities,
+        const.DATA: np.array([0] * len(null_probabilities)),
     }
     return list(accumulate(accumulator, data, acc))[1:]
 
